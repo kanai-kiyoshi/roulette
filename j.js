@@ -14,7 +14,11 @@ for (var i=0;i<3;i++){
 	var tr=document.getElementsByTagName('tr')[i];
 	numbers.forEach(e=>{
 		let td=document.createElement('td');
-		td.innerText=e;
+		let span=document.createElement('span');
+		span.innerText=e;
+		span.style.display='inline-block';
+		span.style.transform='rotate(-90deg)';
+		td.append(span);
 		td.style.width=30;
 		td.style.height=30;
 		td.style.textAlign='center';
