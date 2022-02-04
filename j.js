@@ -1,5 +1,8 @@
 const body=document.getElementsByTagName('body')[0];
 let table=document.createElement('table');
+table.border=1;
+table.style.borderCollapse='collapse';
+table.style.borderColor='gold';
 body.appendChild(table);
 
 // create table
@@ -13,9 +16,11 @@ for (var i=0;i<3;i++){
 		let td=document.createElement('td');
 		td.innerText=e;
 		td.style.width=30;
+		td.style.height=30;
 		td.style.textAlign='center';
-		td.style.border='1px gold solid';
-		td.style.
+		td.style.boxSizing='border-box';
+		td.style.margin=0;
+		td.style.padding=0;
 		tr.append(td);
 	});
 }
