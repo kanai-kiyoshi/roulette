@@ -1,0 +1,80 @@
+text();
+function text(){
+	const body=document.getElementsByTagName('body')[0];
+	const div=document.createElement('div');
+	div.id='text';
+	const hours=new Date().getHours();
+	let initText;
+	if(hours<4){
+		initText='こんばんは。';
+	}
+	else if(hours<9){
+		initText='おはようございます。';
+	}
+	else if(hours<17){
+		initText='ごきげんよう。'
+	}
+	else{
+		initText='こんばんは。';
+	}
+	div.innerText=initText+'私の名前は ダイアモンド・ジム。';
+	Object.assign(div.style,{
+		position: 'absolute',
+		width: '800px',
+		height: '200px',
+		bottom: '0px',
+		margin: '50px',
+		padding: '50px',
+		boxSizing: 'border-box',
+		backgroundColor: '#0000003d',
+	});
+	body.append(div);
+}
+
+function chat(s){
+	const text=document.getElementById('text');
+	text.innerText=s;
+}
+
+var spining;
+var speed;
+setInterval(function(){
+	const d=new Date();
+	const sec=d.getSeconds();
+	console.log(sec);
+	switch(sec){
+		case 5:
+			chat('さあ、あなたのベットを置いてください。');
+			break;
+		case 20:
+			chat('ディーラーはボールをスピンします…');
+				speed=0;
+				spining=setInterval(function(){
+					const elms=document.querySelectorAll('td[value*="_"]');
+					const elm=elms[Math.random()*38|0];
+					elms.forEach(e=>e.classList.remove('chosen'));
+					elm.classList.add('chosen');
+				},1e2+speed);
+			break;
+		case 28:
+			chat('他にベットはよろしいです？');
+			break;
+		case 30:
+			chat('オーケー、ノー・モア・ベット。');
+			speed=100;
+			break;
+		case 45 :
+			const elms=document.querySelectorAll('td[value*="_"]');
+			const elm=elms[Math.random()*38|0];
+			const num=elm.getAttribute('value').slice(1);
+			clearInterval(spining);
+			elms.forEach(e=>e.classList.remove('chosen'));
+			chat('数字は '+num+' です！');
+			for(let i=0;i<100;i++){
+				setTimeout(function(){
+					elm.classList.toggle('chosen');
+				},100*i);
+			}
+			break;
+	}
+},1e3);

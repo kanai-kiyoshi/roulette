@@ -1,0 +1,5 @@
+td[class="chosen"] {
+	color:gold;
+	outline: 4px solid gold;
+	outline-offset: -4px;
+}
