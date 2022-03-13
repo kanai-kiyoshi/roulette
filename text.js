@@ -17,17 +17,40 @@ function text(){
 	else{
 		initText='こんばんは。';
 	}
-	div.innerText=initText+'私の名前は ダイアモンド・ジム。';
+	div.innerText=initText+'私はディーラーの ダイアモンド・ジム。';
 	Object.assign(div.style,{
 		position: 'absolute',
 		width: '800px',
 		height: '200px',
+		right: '0px',
 		bottom: '0px',
 		margin: '50px',
 		padding: '50px',
 		boxSizing: 'border-box',
 		backgroundColor: '#0000003d',
 	});
+	body.append(div);
+}
+
+dealer();
+function dealer(){
+	const body=document.getElementsByTagName('body')[0];
+	const div=document.createElement('div');
+	div.id='dealer';
+	Object.assign(div.style,{
+		position: 'absolute',
+		width: '200px',
+		height: '200px',
+		right: '800px',
+		bottom: '0px',
+		margin: '50px',
+		padding: '50px',
+		boxSizing: 'border-box',
+	});
+	const dealer=document.createElement('img');
+	dealer.src='./images/jim.png';
+	dealer.style.zoom=0.2;
+	div.append(dealer);
 	body.append(div);
 }
 
