@@ -65,10 +65,17 @@ function loop(){
 	setInterval(function(){
 		const d=new Date();
 		const sec=d.getSeconds();
-		console.log(sec);
+		//console.log(sec);
+		if(21<sec&&sec<39){
+			spin();
+		}
 		switch(sec){
 			case 5:
 				chat('さあ、あなたのベットを置いてください。');
+				break;
+			case 18:
+				spinStart();
+				ballThrow();
 				break;
 			case 20:
 				chat('ディーラーはボールをスピンします…');
@@ -84,6 +91,9 @@ function loop(){
 				break;
 			case 30:
 				chat('オーケー、ノー・モア・ベット。');
+				break;
+			case 40:
+				spinStop();
 				break;
 			case 45 :
 				const elms=document.querySelectorAll('td[value*="_"]');
