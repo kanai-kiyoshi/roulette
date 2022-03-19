@@ -65,13 +65,14 @@ function loop(){
 	setInterval(function(){
 		const d=new Date();
 		const sec=d.getSeconds();
-		console.log(sec);
+		//console.log(sec);
 		switch(sec){
 			case 5:
 				chat('さあ、あなたのベットを置いてください。');
 				break;
 			case 20:
 				chat('ディーラーはボールをスピンします…');
+					spin();
 					spining=setInterval(function(){
 						const elms=document.querySelectorAll('td[value*="_"]');
 						const elm=elms[Math.random()*38|0];
