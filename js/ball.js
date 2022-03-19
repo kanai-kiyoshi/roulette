@@ -36,7 +36,3 @@ function ballThrow(){
 		ball.style.top=100;
 	},1000);
 }
-
-ballThrow();
-
-
