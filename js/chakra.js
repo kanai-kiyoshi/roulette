@@ -38,6 +38,7 @@ function chakraRender(){
 			height: 20,
 			left: 128,
 			top: 128,
+			fontWeight: 'bold',
 			textAlign: 'center',
 			clipPath: 'polygon(10% 100%, 0% 0%, 100% 0%, 90% 100%)',
 		});
@@ -113,7 +114,7 @@ function chakraRender(){
 		top: '40px',
 		boxSizing: 'border-box',
 		userSelect: 'none',
-		border: '46px solid gold',
+		border: '46px solid silver',
 		borderRadius: '100%',
 		zIndex: -1,
 		backgroundColor: '#643c06',
