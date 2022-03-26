@@ -65,10 +65,6 @@ function loop(){
 	setInterval(function(){
 		const d=new Date();
 		const sec=d.getSeconds();
-		//console.log(sec);
-		if(21<sec&&sec<39){
-			spin();
-		}
 		switch(sec){
 			case 5:
 				ballRemove();
@@ -76,9 +72,9 @@ function loop(){
 				break;
 			case 18:
 				spinStart();
-				ballThrow();
 				break;
 			case 20:
+				ballThrow();
 				chat('ディーラーはボールをスピンします…');
 					spining=setInterval(function(){
 						const elms=document.querySelectorAll('td[value*="_"]');
@@ -94,15 +90,22 @@ function loop(){
 				chat('オーケー、ノー・モア・ベット。');
 				break;
 			case 40:
-				spinStop();
 				break;
-			case 45 :
+			case 48 :
+				clearInterval(spining);
+				const ball=document.getElementById('ball');
+				let num=null;
+				if(ball){
+					const rect=ball.getBoundingClientRect();
+					const atari=document.elementFromPoint(rect.x+10,rect.y+10);
+					num=~~atari.getAttribute('value').slice(1);
+					chat('数字は '+num+' です！');
+				}
 				//const elms=document.querySelectorAll('td[value*="_"]');
 				//const elm=elms[Math.random()*38|0];
 				//const num=elm.getAttribute('value').slice(1);
-				clearInterval(spining);
 				//elms.forEach(e=>e.classList.remove('chosen'));
-				chat('数字は '+num+' です！');
+				//chat('数字は '+num+' です！');
 				for(let i=0;i<100;i++){
 					setTimeout(function(){
 						//elm.classList.toggle('chosen');

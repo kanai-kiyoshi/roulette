@@ -142,52 +142,30 @@ function chakraRender(){
 
 }
 
-const spin=function(){
-	return;
-	const chakra=document.getElementById('chakra');
-	if(chakra.getAnimations().length!==0){
-		return;
-	}
-		chakra.animate([
-		{ transform: 'rotate(360deg)' }
-	], {
-		duration: 1500,
-		iterations: 100,
-	});
-}
-
 const spinStart=function(){
 	const chakra=document.getElementById('chakra');
-	const ball=document.getElementById('ball');
 	const duration=2e3;
 	const rot={ transform: 'rotate(360deg)' };
-	const rev={ transform: 'rotate(-360deg)' };
 	const opt={
 		duration: duration,
 		easing: 'ease-in',
 	};
-	return;
 	chakra.animate([rot],opt);
-	//ball.animate([rev],opt);
+	const ite=10, dur=1500;
 	setTimeout(function(){
 		const opt1={
-			duration: 1500,
-			iterations: 100,
+			duration: dur,
+			iterations: ite,
 		};
 		chakra.animate([rot],opt1);
-		//ball.animate([rev],opt1);
 	},duration);
-}
-
-const spinStop=function(){
-	return;
-	const chakra=document.getElementById('chakra');
-	chakra.getAnimations()[0].finish();
-	chakra.animate([
-		{ transform: 'rotate(360deg)' }
-	], {
-		duration: 5e3,
-		easing: 'ease-out',
-		iterations: 1,
-	});
+	setTimeout(function(){
+		chakra.animate([rot],{duration:2000});
+	},duration+dur*ite);
+	setTimeout(function(){
+		chakra.animate([rot],{duration:3000});
+	},duration+dur*ite+2e3);
+	setTimeout(function(){
+		chakra.animate([rot],{duration:8000, easing:'ease-out'});
+	},duration+dur*ite+2e3+3e3);
 }

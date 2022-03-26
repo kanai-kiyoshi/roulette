@@ -1,5 +1,16 @@
 function ballThrow(){
 	const body=document.getElementsByTagName('body')[0];
+
+	// ball into the pocket
+	const rand=Math.random();
+	const deg=-137+rand*360+9.47368421053;
+	const num=1+(rand*38|0);
+	const deg2=-137+num*9.47368421053;
+	//console.log(num);
+	//console.log(deg);
+	//console.log(deg2);
+
+	// define ball
 	let ball=document.createElement('div');
 	ball.id='ball';
 	Object.assign(ball.style,{
@@ -37,9 +48,6 @@ function ballThrow(){
 	const outerBallKeyFrames=[
 		{transform: 'rotate(223deg)'},
 		{transform: 'rotate(-137deg)'},
-	];
-	const innerBallKeyFrames=[
-
 	];
 	setTimeout(function(){
 		clearInterval(throwing);
@@ -91,20 +99,13 @@ function ballThrow(){
 			duration: 6e3,
 		});
 	},1e3+2e3+4e3+4e3);
-	const rand=Math.random();
-	const deg=-137+rand*360+9.47368421053;
-	const num=1+(rand*38|0);
-	console.log(num);
-	const deg2=-137+num*9.47368421053;
-	console.log(deg);
-	console.log(deg2);
 	setTimeout(function(){
 		outerBall.animate([
 			{transform: 'rotate('+deg+'deg)'},
 			{transform: 'rotate(-137deg)'},
 		],{
 			direction: 'reverse',
-			duration: 10e3,
+			duration: 9800,
 		});
 		ball.animate([
 			{left: '120px'},
@@ -126,6 +127,7 @@ function ballThrow(){
 			{left: '104px'},
 		],{
 			duration: 200,
+			easing: 'cubic-bezier(.81,1.79,.72,.67)',
 		});
 	},1e3+2e3+4e3+4e3+6e3+9800);
 	setTimeout(function(){
@@ -134,27 +136,6 @@ function ballThrow(){
 		clearInterval(throwing);
 	},1e3+2e3+4e3+4e3+6e3+10e3);
 
-	return;
-
-	let tumbling=0;
-	setTimeout(function(){
-		clearInterval(throwing);
-		// outer ball define
-		document.getElementById('ball').outerHTML=`
-			<div id="outerBall">
-				${document.getElementById('ball').outerHTML}
-			</div>
-		`;
-		const outerBall=document.getElementById('outerBall');
-		Object.assign(outerBall.style,{
-			position: 'absolute',
-			display: 'inline-block',
-			width: '36px',
-			height: '36px',
-			left: '870px',
-			top: '160px',
-		});
-	},1000);
 }
 
 function ballRemove(){
