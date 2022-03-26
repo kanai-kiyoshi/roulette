@@ -1,6 +1,6 @@
 function ballThrow(){
 	const body=document.getElementsByTagName('body')[0];
-	const ball=document.createElement('div');
+	let ball=document.createElement('div');
 	ball.id='ball';
 	Object.assign(ball.style,{
 		display: 'block',
@@ -14,29 +14,151 @@ function ballThrow(){
 		boxShadow: 'rgb(0 0 0) -3px -2px 6px 0px inset',
 	});
 	body.append(ball);
+
+	// ball bouncing
 	let i=0;
-	let down=true;
+	let bouncing=0;
 	const throwing=setInterval(function(){
 		ball.style.left=~~ball.style.left.slice(0,-2)+16;
-		if(down){
-			ball.style.top=~~ball.style.top.slice(0,-2)+3*i;
-			i++;
-		}
-		else{
-			ball.style.top=~~ball.style.top.slice(0,-2)-10-3*i;
-			i--;
-		}
+		ball.style.top=~~ball.style.top.slice(0,-2)+i*3;
+		i++;
 		if(ball.style.top.slice(0,-2)>600){
-			down=false;
+			i=-i*1.2;
+			bouncing++;
+		}
+		if(bouncing===2){
+			ball.style.top=-10;
+			bouncing=3;
 		}
 	},25);
+
+	// ball in spinner
+	const outerBall=document.getElementById('outerBall');
+	const outerBallKeyFrames=[
+		{transform: 'rotate(223deg)'},
+		{transform: 'rotate(-137deg)'},
+	];
+	const innerBallKeyFrames=[
+
+	];
 	setTimeout(function(){
 		clearInterval(throwing);
-		ball.style.left=800;
-		ball.style.top=100;
+		// ball outer in chakra
+		outerBall.append(ball);
+		outerBall.animate(outerBallKeyFrames,{
+			direction: 'reverse',
+			duration: 1e3,
+			iterations: 2,
+		});
+		ball.style.top='0px';
+		ball.style.left='160px';
+		ball.style.transform='rotate(-223deg)';  // counter angle
+	},1e3);
+	setTimeout(function(){
+		outerBall.animate(outerBallKeyFrames,{
+			direction: 'reverse',
+			duration: 2e3,
+			iterations: 2,
+		});
+		ball.animate([
+			{left: '160px'},
+			{left: '150px'},
+		],{
+			duration: 4e3,
+		});
+	},1e3+2e3);
+	setTimeout(function(){
+		outerBall.animate(outerBallKeyFrames,{
+			direction: 'reverse',
+			duration: 4e3,
+		});
+		ball.animate([
+			{left: '150px'},
+			{left: '140px'},
+		],{
+			duration: 4e3,
+		});
+	},1e3+2e3+4e3);
+	setTimeout(function(){
+		outerBall.animate(outerBallKeyFrames,{
+			direction: 'reverse',
+			duration: 6e3,
+		});
+		ball.animate([
+			{left: '140px'},
+			{left: '120px'},
+		],{
+			duration: 6e3,
+		});
+	},1e3+2e3+4e3+4e3);
+	const rand=Math.random();
+	const deg=-137+rand*360+9.47368421053;
+	const num=1+(rand*38|0);
+	console.log(num);
+	const deg2=-137+num*9.47368421053;
+	console.log(deg);
+	console.log(deg2);
+	setTimeout(function(){
+		outerBall.animate([
+			{transform: 'rotate('+deg+'deg)'},
+			{transform: 'rotate(-137deg)'},
+		],{
+			direction: 'reverse',
+			duration: 10e3,
+		});
+		ball.animate([
+			{left: '120px'},
+			{left: '113px'},
+		],{
+			duration: 9800,
+		});
+	},1e3+2e3+4e3+4e3+6e3);
+	setTimeout(function(){
+		outerBall.animate([
+			{transform: 'rotate('+deg2+'deg)'},
+			{transform: 'rotate('+deg+'deg)'},
+		],{
+			direction: 'reverse',
+			duration: 200,
+		});
+		ball.animate([
+			{left: '113px'},
+			{left: '104px'},
+		],{
+			duration: 200,
+		});
+	},1e3+2e3+4e3+4e3+6e3+9800);
+	setTimeout(function(){
+		outerBall.style.transform='rotate('+deg2+'deg)';
+		ball.style.left='104px';
+		clearInterval(throwing);
+	},1e3+2e3+4e3+4e3+6e3+10e3);
+
+	return;
+
+	let tumbling=0;
+	setTimeout(function(){
+		clearInterval(throwing);
+		// outer ball define
+		document.getElementById('ball').outerHTML=`
+			<div id="outerBall">
+				${document.getElementById('ball').outerHTML}
+			</div>
+		`;
+		const outerBall=document.getElementById('outerBall');
+		Object.assign(outerBall.style,{
+			position: 'absolute',
+			display: 'inline-block',
+			width: '36px',
+			height: '36px',
+			left: '870px',
+			top: '160px',
+		});
 	},1000);
 }
 
 function ballRemove(){
+	try{
 	document.getElementById('ball').remove();
+	}catch(e){}
 }

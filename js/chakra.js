@@ -1,23 +1,17 @@
-chakra();
-function chakra(){
+chakraRender();
+function chakraRender(){
 	// define parent div
 	const body=document.getElementsByTagName('body')[0];
-	const div=document.createElement('div');
-	div.id='chakra';
-	Object.assign(div.style,{
+	// defined rolling div
+	const chakra=document.createElement('div');
+	chakra.id='chakra';
+	Object.assign(chakra.style,{
 		position: 'absolute',
-		width: 	'274.5px',
-		height: '275.5px',
-		left: '720px',
-		top: '10px',
-		backgroundColor: '#643c06',
-		border: '0px solid gold',
-		borderRadius: '200px',
-		outlineStyle: 'solid',
-		outlineColor: 'gold',
-		outlineOffset: '-45px',
-		outlineWidth: '45px',
-		cursor: 'pointer',
+		width: 	'275px',
+		height: '276px',
+		left: '30px',
+		top: '30px',
+		userSelect: 'none',
 	});
 
 	/// define belt contains number display
@@ -28,6 +22,7 @@ function chakra(){
 	.split(',').forEach(function(num){
 		const span=document.createElement('span');
 		span.id='chakra_'+num;
+		span.style.display='table';
 		span.innerText=num;
 		colorIndex=!colorIndex;
 		backgroundColor=colorIndex?'red':'black';
@@ -35,7 +30,7 @@ function chakra(){
 			backgroundColor='green';
 		}
 		Object.assign(span.style,{
-			display: 'inline-block',
+			display: 'table-cell',
 			position: 'absolute',
 			backgroundColor: backgroundColor,
 			color: 'white',
@@ -48,10 +43,9 @@ function chakra(){
 		});
 		numberBelt.append(span);
 	});
-	div.append(numberBelt);
-	body.appendChild(div);
+	chakra.append(numberBelt);
 	//// positioning number displaies
-	Array.from(document.querySelectorAll('div#chakra > #numberBelt > span')).forEach(function(span,i){
+	numberBelt.querySelectorAll('span').forEach(function(span,i){
 		const rad=(2*i*Math.PI)/38;
 		span.style.transform=`
 			rotate(${rad}rad)
@@ -60,46 +54,96 @@ function chakra(){
 	});
 
 	/// define belt contains number pocket for ball
-	const numberPocket=document.createElement('div');
+	const numberPocket=numberBelt.cloneNode(true);
 	numberPocket.id='numberPocket';
-	let colorIndex2=true;
-	'00,27,10,25,29,12,8,19,31,18,6,21,33,16,4,23,35,14,2,0,28,9,26,30,11,7,20,32,17,5,22,34,15,3,24,36,13,1'
-	.split(',').forEach(function(num){
-		const span=document.createElement('span');
-		span.id='chakra_in_'+num;
-		colorIndex2=!colorIndex2;
-		backgroundColor=colorIndex2?'red':'black';
-		if(num==='0'||num==='00'){
-			backgroundColor='green';
-		}
+	//// positioning number displaies
+	numberPocket.querySelectorAll('span').forEach(function(span,i){
+		span.id=span.id.replace('_','__');
+		span.innerText='';
+		const rad=(2*i*Math.PI)/38;
 		Object.assign(span.style,{
-			display: 'inline-block',
-			position: 'absolute',
-			backgroundColor: backgroundColor,
-			color: 'white',
-			width: 20,
-			height: 20,
-			left: 128,
-			top: 128,
-			textAlign: 'center',
+			transform:`
+				rotate(${rad}rad)
+				translateY(${Math.sin(rad)/2-104}px)
+			`,
 			clipPath: 'polygon(15% 100%, 5% 0%, 95% 0%, 85% 100%)',
 			filter: 'brightness(.5)',
 		});
-		numberPocket.append(span);
 	});
-	div.append(numberPocket);
-	body.appendChild(div);
-	//// positioning number displaies
-	Array.from(document.querySelectorAll('div#chakra > #numberPocket > span')).forEach(function(span,i){
-		const rad=(2*i*Math.PI)/38;
-		span.style.transform=`
-			rotate(${rad}rad)
-			translateY(${Math.sin(rad)/2-104}px)
-		`;
+	Object.assign(numberBelt.style,{
+		boxSizing: 'border-box',
+		width: '100%',
+		height: '100%',
+		borderRadius: '100%'
 	});
+	numberBelt.after(numberPocket);
+
+	/// define nipples on chakra
+	const nipple=document.createElement('div');
+	nipple.className='nipple';
+	chakra.append(nipple);
+
+	/// define outer ball
+	const outerBall=document.createElement('div');
+	outerBall.id='outerBall';
+
+	Object.assign(outerBall.style,{
+		display: 'block',
+		position: 'relative',
+		width: '20px',
+		height: '20px',
+		left: 'calc(50% - 10px)',
+		top: 'calc(-50% - 10px)',
+		transform: 'rotate(225deg)',
+	});
+	chakra.append(outerBall);
+
+	/// append
+	body.appendChild(chakra);
+
+
+	// defined not rolling div
+	const area=document.createElement('div');
+	area.id='area';
+	Object.assign(area.style,{
+		position: 'absolute',
+		width: 	'275px',
+		height: '276px',
+		left: '750px',
+		top: '40px',
+		boxSizing: 'border-box',
+		userSelect: 'none',
+		border: '46px solid gold',
+		borderRadius: '100%',
+		zIndex: -1,
+		backgroundColor: '#643c06',
+		outline: '40px solid #643c06',
+		outlineOffset: '-1px',
+	});
+
+	body.appendChild(area);
+
+	// outer chakra define
+	chakra.outerHTML=`
+		<div id="outerChakra">
+			${document.getElementById('chakra').outerHTML}
+		</div>
+	`;
+
+	Object.assign(document.getElementById('outerChakra').style,{
+		position: 'absolute',
+		display: 'inline-block',
+		width: '336px',
+		height: '336px',
+		left: '720px',
+		top: '10px',
+		overflow: 'hidden',
+	});
+
 }
 
 const spin=function(){
+	return;
 	const chakra=document.getElementById('chakra');
 	if(chakra.getAnimations().length!==0){
 		return;
@@ -114,24 +158,29 @@ const spin=function(){
 
 const spinStart=function(){
 	const chakra=document.getElementById('chakra');
+	const ball=document.getElementById('ball');
 	const duration=2e3;
-	chakra.animate([
-		{ transform: 'rotate(360deg)' }
-	], {
+	const rot={ transform: 'rotate(360deg)' };
+	const rev={ transform: 'rotate(-360deg)' };
+	const opt={
 		duration: duration,
 		easing: 'ease-in',
-	});
+	};
+	return;
+	chakra.animate([rot],opt);
+	//ball.animate([rev],opt);
 	setTimeout(function(){
-		chakra.animate([
-			{ transform: 'rotate(360deg)' }
-		], {
+		const opt1={
 			duration: 1500,
 			iterations: 100,
-		});
+		};
+		chakra.animate([rot],opt1);
+		//ball.animate([rev],opt1);
 	},duration);
 }
 
 const spinStop=function(){
+	return;
 	const chakra=document.getElementById('chakra');
 	chakra.getAnimations()[0].finish();
 	chakra.animate([

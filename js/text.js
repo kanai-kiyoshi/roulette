@@ -22,7 +22,7 @@ function text(){
 		position: 'absolute',
 		width: '800px',
 		height: '200px',
-		right: '0px',
+		left: '200px',
 		bottom: '0px',
 		margin: '50px',
 		padding: '50px',
@@ -41,7 +41,7 @@ function dealer(){
 		position: 'absolute',
 		width: '200px',
 		height: '200px',
-		right: '800px',
+		left: '0px',
 		bottom: '0px',
 		margin: '50px',
 		padding: '50px',
@@ -97,15 +97,15 @@ function loop(){
 				spinStop();
 				break;
 			case 45 :
-				const elms=document.querySelectorAll('td[value*="_"]');
-				const elm=elms[Math.random()*38|0];
-				const num=elm.getAttribute('value').slice(1);
+				//const elms=document.querySelectorAll('td[value*="_"]');
+				//const elm=elms[Math.random()*38|0];
+				//const num=elm.getAttribute('value').slice(1);
 				clearInterval(spining);
-				elms.forEach(e=>e.classList.remove('chosen'));
+				//elms.forEach(e=>e.classList.remove('chosen'));
 				chat('数字は '+num+' です！');
 				for(let i=0;i<100;i++){
 					setTimeout(function(){
-						elm.classList.toggle('chosen');
+						//elm.classList.toggle('chosen');
 					},100*i);
 				}
 				break;
