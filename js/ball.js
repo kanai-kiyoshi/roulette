@@ -36,3 +36,7 @@ function ballThrow(){
 		ball.style.top=100;
 	},1000);
 }
+
+function ballRemove(){
+	document.getElementById('ball').remove();
+}

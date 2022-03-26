@@ -71,6 +71,7 @@ function loop(){
 		}
 		switch(sec){
 			case 5:
+				ballRemove();
 				chat('さあ、あなたのベットを置いてください。');
 				break;
 			case 18:
