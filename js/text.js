@@ -91,25 +91,19 @@ function loop(){
 				break;
 			case 40:
 				break;
-			case 48 :
+			case 47 :
 				clearInterval(spining);
-				const ball=document.getElementById('ball');
-				let num=null;
-				if(ball){
-					const rect=ball.getBoundingClientRect();
-					const atari=document.elementFromPoint(rect.x+10,rect.y+10);
-					num=~~atari.getAttribute('value').slice(1);
-					chat('数字は '+num+' です！');
+				if(theNum){
+					chat('数字は '+theNum+' です！');
 				}
-				//const elms=document.querySelectorAll('td[value*="_"]');
-				//const elm=elms[Math.random()*38|0];
-				//const num=elm.getAttribute('value').slice(1);
-				//elms.forEach(e=>e.classList.remove('chosen'));
-				//chat('数字は '+num+' です！');
-				for(let i=0;i<100;i++){
-					setTimeout(function(){
-						//elm.classList.toggle('chosen');
-					},100*i);
+				const elm=document.querySelector(`td[value*="_${theNum}"]`);
+				document.querySelectorAll(`td[value*="_"]`).forEach(e=>e.classList.remove('chosen'));
+				if(elm){
+						for(let i=0;i<100;i++){
+								setTimeout(function(){
+										elm.classList.toggle('chosen');
+								},100*i);
+						}
 				}
 				break;
 		}
