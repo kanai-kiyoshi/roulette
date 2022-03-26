@@ -96,10 +96,11 @@ function loop(){
 				if(theNum){
 					chat('数字は '+theNum+' です！');
 				}
-				const elm=document.querySelector(`td[value*="_${theNum}"]`);
+				const elm=document.querySelector(`td[value="_${theNum}"]`);
+				theNum=null;
 				document.querySelectorAll(`td[value*="_"]`).forEach(e=>e.classList.remove('chosen'));
 				if(elm){
-						for(let i=0;i<100;i++){
+						for(let i=0;i<200;i++){
 								setTimeout(function(){
 										elm.classList.toggle('chosen');
 								},100*i);
