@@ -80,9 +80,53 @@ function chakraRender(){
 	numberBelt.after(numberPocket);
 
 	/// define nipples on chakra
-	const nipple=document.createElement('div');
-	nipple.className='nipple';
-	chakra.append(nipple);
+	[0,45,90,135,180,225,270,315].forEach(function(deg){
+		const nipple=document.createElement('div');
+		nipple.className='nipple';
+		Object.assign(nipple.style,{
+			position: 'absolute',
+			display: 'inline-block',
+			left: 'calc(50% - 30px)',
+			top: 'calc(50% - 30px)',
+			width: '40px',
+			height: '40px',
+			border: '10px solid white',
+			backgroundColor: 'silver',
+			transform: `
+				rotate(${deg}deg)
+				translateY(150px)
+				rotate(${deg%90===0?45:-45}deg)
+				skew(30deg, 30deg)
+				scale(0.1)
+			`,
+		});
+		chakra.append(nipple);
+	});
+
+	// define handle
+	[...new Array(38)].map((_,i)=>360/38*i+(360/38/2)).forEach(function(deg){
+		const handle=document.createElement('div');
+		handle.className='handle';
+		handle.innerHTML=`<hr style="
+			margin-top: 5px;
+			opacity: .25;
+		">`;
+		Object.assign(handle.style,{
+				position: 'absolute',
+				display: 'inline-block',
+				left: 'calc(50% - 30px)',
+				top: 'calc(50% - 5px)',
+				width: '60px',
+				height: '10px',
+				transform: `
+					rotate(${deg}deg)
+					translateY(60px)
+					rotate(90deg)
+				`,
+				//background: 'linear-gradient(0.25turn, rgb(231 222 26), rgb(255 255 255), rgb(255 254 20))',
+		});
+		chakra.append(handle);
+	});
 
 	/// define outer ball
 	const outerBall=document.createElement('div');
@@ -102,7 +146,6 @@ function chakraRender(){
 	/// append
 	body.appendChild(chakra);
 
-
 	// defined not rolling div
 	const area=document.createElement('div');
 	area.id='area';
@@ -117,9 +160,10 @@ function chakraRender(){
 		border: '46px solid silver',
 		borderRadius: '100%',
 		zIndex: -1,
-		backgroundColor: '#643c06',
+		background: 'conic-gradient(#ffffab, #a9900b, #ffffab)',
 		outline: '40px solid #643c06',
 		outlineOffset: '-1px',
+		transform: 'rotate(-45deg)',
 	});
 
 	body.appendChild(area);
